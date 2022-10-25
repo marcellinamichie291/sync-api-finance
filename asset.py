@@ -61,7 +61,7 @@ def get_bit_kub_last_price(token):
         response = requests.request(
             "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-        print(f"SYNC: {symbol} Status: {response.status_code}")
+        print(f"SYNC: {symbol} lastprice: {last} Status: {response.status_code}")
 
 
 
@@ -78,6 +78,6 @@ def logout(token):
 
 if __name__ == "__main__":
     token = login()
-    # symbols(token)
     get_bit_kub_last_price(token)
+    symbols(token)
     logout(token)
