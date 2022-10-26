@@ -30,6 +30,19 @@ def symbols(token):
 
         # print(f"symbol: {symbol} status: {response.status_code}")
 
+    # response = requests.request(
+    #     "GET", "https://api.gateio.ws/api/v4/spot/tickers")
+    # for i in response.json():
+    #     symbol = (i['currency_pair'])[:(i['currency_pair']).find('_')]
+    #     description = symbol
+    #     payload = f'asset_group_id=-&symbol={symbol}&description={description}&is_active=true'
+    #     headers = {
+    #         'Authorization': f'Bearer {token}',
+    #         'Content-Type': 'application/x-www-form-urlencoded'
+    #     }
+
+    #     response = requests.request(
+    #         "POST", f"{api_host}/asset/list", headers=headers, data=payload)
     return None
 
 
