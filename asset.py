@@ -208,35 +208,77 @@ def get_kucoin_last_price(token):
         "GET", f"{api_host}/asset/list", headers=headers, data={})
     for i in response.json()["data"]:
         response = requests.request(
-            "GET", f"https://openapi-sandbox.kucoin.com/api/v1/market/stats?symbol={i['symbol']}-USDT")
+            "GET", f"https://api.kucoin.com/api/v1/market/stats?symbol={i['symbol']}-USDT")
         if response.status_code == 200:
-            obj = response.json()
-            exchange = "Kucoin"
-            symbol = i['symbol']
-            last = float(obj['last'])*thb
-            lowestAsk = 0#float(obj['buy'])*thb
-            highestBid = 0# float(obj['sell'])*thb
-            percentChange = float(obj['changeRate'])*thb
-            baseVolume = float(obj['vol'])*thb
-            quoteVolume = float(obj['volValue'])*thb
-            isFrozen = 0  # float(obj['weightedAvgPrice'])*thb
-            high24hr = float(obj['high'])*thb
-            low24hr = float(obj['low'])*thb
-            change = float(obj['changePrice'])*thb
-            prevClose = 0#float(obj['lastPrice'])*thb
-            prevOpen = 0#float(obj['lastPrice'])*thb
+            obj = response.json()["data"]
+            if obj['last'] != None:
+                exchange = "Kucoin"
+                symbol = i['symbol']
+                last = float(obj['last'])*thb
+                lowestAsk = 0  # float(obj['buy'])*thb
+                highestBid = 0  # float(obj['sell'])*thb
+                percentChange = float(obj['changeRate'])*thb
+                baseVolume = float(obj['vol'])*thb
+                quoteVolume = float(obj['volValue'])*thb
+                isFrozen = 0  # float(obj['weightedAvgPrice'])*thb
+                high24hr = float(obj['high'])*thb
+                low24hr = float(obj['low'])*thb
+                change = float(obj['changePrice'])*thb
+                prevClose = 0  # float(obj['lastPrice'])*thb
+                prevOpen = 0  # float(obj['lastPrice'])*thb
 
-            payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_KUCOIN&is_active=true'''
-            headers = {
-                'Authorization': f'Bearer {token}',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+                payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_KUCOIN&is_active=true'''
+                headers = {
+                    'Authorization': f'Bearer {token}',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
 
-            response = requests.request(
-                "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
+                response = requests.request(
+                    "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-            print(
-                f"KUCOIN ==> symbol: {i['symbol']} price: {obj['last']} thb:{float(obj['last'])*thb} status: {response.status_code}")
+                print(
+                    f"KUCOIN ==> symbol: {i['symbol']} price: {obj['last']} thb:{float(obj['last'])*thb} status: {response.status_code}")
+
+
+def get_ftx_last_price(token):
+    thb = get_thb_rate()
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request(
+        "GET", f"{api_host}/asset/list", headers=headers, data={})
+    for i in response.json()["data"]:
+        response = requests.request(
+            "GET", f"https://ftx.com/api/markets/{i['symbol']}/USDT")
+        if response.status_code == 200:
+            obj = response.json()["result"]
+            if obj['last'] != None:
+                exchange = "FTX"
+                symbol = i['symbol']
+                last = float(obj['last'])*thb
+                lowestAsk = float(obj['ask'])*thb
+                highestBid = float(obj['bid'])*thb
+                percentChange = float(obj['changeBod'])*thb
+                baseVolume = float(obj['volumeUsd24h'])*thb
+                quoteVolume = float(obj['quoteVolume24h'])*thb
+                isFrozen = float(obj['largeOrderThreshold'])*thb
+                high24hr = float(obj['priceHigh24h'])*thb
+                low24hr = float(obj['priceLow24h'])*thb
+                change = float(obj['change24h'])*thb
+                prevClose = 0  # float(obj['lastPrice'])*thb
+                prevOpen = 0  # float(obj['lastPrice'])*thb
+
+                payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_FTX&is_active=true'''
+                headers = {
+                    'Authorization': f'Bearer {token}',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+
+                response = requests.request(
+                    "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
+
+                print(
+                    f"FTX ==> symbol: {i['symbol']} price:{last} status: {response.status_code}")
 
 
 def logout(token):
@@ -262,5 +304,7 @@ if __name__ == "__main__":
     get_gate_io_last_price(token)
     print(f"------------- KUCOIN -----------------")
     get_kucoin_last_price(token)
+    print(f"------------- FTX -----------------")
+    get_ftx_last_price(token)
     symbols(token)
     logout(token)
