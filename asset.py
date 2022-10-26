@@ -16,6 +16,7 @@ def symbols(token):
     url = "https://api.bitkub.com/api/market/symbols"
     response = requests.request("GET", url)
     data = response.json()
+    rn = 1
     for s in data["result"]:
         symbol = (s["symbol"])[len("THB_"):]
         description = (s["info"])[len("Thai Baht to "):]
@@ -28,7 +29,8 @@ def symbols(token):
         response = requests.request(
             "POST", f"{api_host}/asset/list", headers=headers, data=payload)
 
-        # print(f"symbol: {symbol} status: {response.status_code}")
+        print(f"{s['id']} ==> symbol: {symbol} status: {response.status_code}")
+        rn += 1
 
     # response = requests.request(
     #     "GET", "https://api.gateio.ws/api/v4/spot/tickers")
@@ -350,6 +352,7 @@ def logout(token):
 
 if __name__ == "__main__":
     token = login()
+    symbols(token)
     print(f"------------- BITKUB -----------------")
     get_bit_kub_last_price(token)
     print(f"------------- BINANCE -----------------")
@@ -364,5 +367,4 @@ if __name__ == "__main__":
     get_ftx_last_price(token)
     print(f"------------- OKX -----------------")
     get_okx_last_price(token)
-    symbols(token)
     logout(token)
