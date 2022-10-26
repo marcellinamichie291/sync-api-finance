@@ -75,19 +75,19 @@ def get_gate_io_last_price(token):
             exchange = "Gate.io"
             symbol = i['symbol']
             last = float(obj['last'])*thb
-            lowestAsk = float(obj['lowest_ask'])*thb
-            highestBid = float(obj['highest_bid'])*thb
-            percentChange = float(obj['change_percentage'])*thb
-            baseVolume = float(obj['base_volume'])*thb
-            quoteVolume = float(obj['quote_volume'])*thb
-            isFrozen = 0  # float(obj['weightedAvgPrice'])*thb
-            high24hr = float(obj['high_24h'])*thb
-            low24hr = float(obj['low_24h'])*thb
-            change = 0  # float(obj['priceChange'])*thb
+            lowestAsk = float(obj['lowest_ask'])
+            highestBid = float(obj['highest_bid'])
+            percentChange = float(obj['change_percentage'])
+            baseVolume = float(obj['base_volume'])
+            quoteVolume = float(obj['quote_volume'])
+            isFrozen = 0  # float(obj['weightedAvgPrice'])
+            high24hr = float(obj['high_24h'])
+            low24hr = float(obj['low_24h'])
+            change = 0  # float(obj['priceChange'])
             prevClose = 0  # float(obj['lastPrice'])*thb
             prevOpen = 0  # float(obj['lastPrice'])*thb
 
-            payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_GATE.IO&is_active=true'''
+            payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
             headers = {
                 'Authorization': f'Bearer {token}',
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,8 +96,7 @@ def get_gate_io_last_price(token):
             response = requests.request(
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-            print(
-                f"GATE.IO ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+            print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
 
 
 def get_satang_pro_last_price(token):
@@ -127,7 +126,7 @@ def get_satang_pro_last_price(token):
             prevClose = float(obj['lastPrice'])
             prevOpen = float(obj['lastPrice'])
 
-            payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_SATANG_PRO&is_active=true'''
+            payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
             headers = {
                 'Authorization': f'Bearer {token}',
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -137,7 +136,7 @@ def get_satang_pro_last_price(token):
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
             print(
-                f"Satang Pro ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+                f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_binance_last_price(token):
@@ -157,17 +156,17 @@ def get_binance_last_price(token):
             last = float(obj['lastPrice'])*thb
             lowestAsk = float(obj['askPrice'])*thb
             highestBid = float(obj['bidPrice'])*thb
-            percentChange = float(obj['priceChangePercent'])*thb
-            baseVolume = float(obj['volume'])*thb
-            quoteVolume = float(obj['quoteVolume'])*thb
-            isFrozen = float(obj['weightedAvgPrice'])*thb
-            high24hr = float(obj['highPrice'])*thb
-            low24hr = float(obj['lowPrice'])*thb
-            change = float(obj['priceChange'])*thb
+            percentChange = float(obj['priceChangePercent'])
+            baseVolume = float(obj['volume'])
+            quoteVolume = float(obj['quoteVolume'])
+            isFrozen = float(obj['weightedAvgPrice'])
+            high24hr = float(obj['highPrice'])
+            low24hr = float(obj['lowPrice'])
+            change = float(obj['priceChange'])
             prevClose = float(obj['lastPrice'])*thb
             prevOpen = float(obj['lastPrice'])*thb
 
-            payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_BINANCE&is_active=true'''
+            payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
             headers = {
                 'Authorization': f'Bearer {token}',
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,7 +176,7 @@ def get_binance_last_price(token):
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
             print(
-                f"BINANCE ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+                f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_bit_kub_last_price(token):
@@ -201,7 +200,7 @@ def get_bit_kub_last_price(token):
         prevClose = obj["prevClose"]
         prevOpen = obj["prevOpen"]
 
-        payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_BITKUB&is_active=true'''
+        payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
         headers = {
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -210,8 +209,7 @@ def get_bit_kub_last_price(token):
         response = requests.request(
             "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-        print(
-            f"BITKUB ==> symbol: {symbol} lastprice: {last} Status: {response.status_code}")
+        print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
 
 
 def get_kucoin_last_price(token):
@@ -230,19 +228,19 @@ def get_kucoin_last_price(token):
                 exchange = "Kucoin"
                 symbol = i['symbol']
                 last = float(obj['last'])*thb
-                lowestAsk = 0  # float(obj['buy'])*thb
-                highestBid = 0  # float(obj['sell'])*thb
-                percentChange = float(obj['changeRate'])*thb
-                baseVolume = float(obj['vol'])*thb
-                quoteVolume = float(obj['volValue'])*thb
-                isFrozen = 0  # float(obj['weightedAvgPrice'])*thb
-                high24hr = float(obj['high'])*thb
-                low24hr = float(obj['low'])*thb
-                change = float(obj['changePrice'])*thb
+                lowestAsk = 0  # float(obj['buy'])
+                highestBid = 0  # float(obj['sell'])
+                percentChange = float(obj['changeRate'])
+                baseVolume = float(obj['vol'])
+                quoteVolume = float(obj['volValue'])
+                isFrozen = 0  # float(obj['weightedAvgPrice'])
+                high24hr = float(obj['high'])
+                low24hr = float(obj['low'])
+                change = float(obj['changePrice'])
                 prevClose = 0  # float(obj['lastPrice'])*thb
                 prevOpen = 0  # float(obj['lastPrice'])*thb
 
-                payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_KUCOIN&is_active=true'''
+                payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
                 headers = {
                     'Authorization': f'Bearer {token}',
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -252,7 +250,7 @@ def get_kucoin_last_price(token):
                     "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
                 print(
-                    f"KUCOIN ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+                    f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_ftx_last_price(token):
@@ -271,19 +269,19 @@ def get_ftx_last_price(token):
                 exchange = "FTX"
                 symbol = i['symbol']
                 last = float(obj['last'])*thb
-                lowestAsk = float(obj['ask'])*thb
-                highestBid = float(obj['bid'])*thb
-                percentChange = float(obj['changeBod'])*thb
-                baseVolume = float(obj['volumeUsd24h'])*thb
-                quoteVolume = float(obj['quoteVolume24h'])*thb
-                isFrozen = float(obj['largeOrderThreshold'])*thb
-                high24hr = float(obj['priceHigh24h'])*thb
-                low24hr = float(obj['priceLow24h'])*thb
-                change = float(obj['change24h'])*thb
+                lowestAsk = float(obj['ask'])
+                highestBid = float(obj['bid'])
+                percentChange = float(obj['changeBod'])
+                baseVolume = float(obj['volumeUsd24h'])
+                quoteVolume = float(obj['quoteVolume24h'])
+                isFrozen = float(obj['largeOrderThreshold'])
+                high24hr = float(obj['priceHigh24h'])
+                low24hr = float(obj['priceLow24h'])
+                change = float(obj['change24h'])
                 prevClose = 0  # float(obj['lastPrice'])*thb
                 prevOpen = 0  # float(obj['lastPrice'])*thb
 
-                payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_FTX&is_active=true'''
+                payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
                 headers = {
                     'Authorization': f'Bearer {token}',
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -293,7 +291,7 @@ def get_ftx_last_price(token):
                     "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
                 print(
-                    f"FTX ==> symbol: {i['symbol']} price:{last} status: {response.status_code}")
+                    f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_okx_last_price(token):
@@ -314,19 +312,19 @@ def get_okx_last_price(token):
                     exchange = "OKX"
                     symbol = i['symbol']
                     last = float(obj['last'])*thb
-                    lowestAsk = float(obj['askPx'])*thb
-                    highestBid = float(obj['bidPx'])*thb
-                    percentChange = 0  # float(obj['changeBod'])*thb
-                    baseVolume = float(obj['vol24h'])*thb
-                    quoteVolume = float(obj['volCcy24h'])*thb
-                    isFrozen = 0  # float(obj['largeOrderThreshold'])*thb
-                    high24hr = float(obj['high24h'])*thb
-                    low24hr = float(obj['low24h'])*thb
-                    change = 0  # float(obj['change24h'])*thb
+                    lowestAsk = float(obj['askPx'])
+                    highestBid = float(obj['bidPx'])
+                    percentChange = 0  # float(obj['changeBod'])
+                    baseVolume = float(obj['vol24h'])
+                    quoteVolume = float(obj['volCcy24h'])
+                    isFrozen = 0  # float(obj['largeOrderThreshold'])
+                    high24hr = float(obj['high24h'])
+                    low24hr = float(obj['low24h'])
+                    change = 0  # float(obj['change24h'])
                     prevClose = 0  # float(obj['lastPrice'])*thb
                     prevOpen = 0  # float(obj['lastPrice'])*thb
 
-                    payload = f'''exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={i['symbol']}_OKX&is_active=true'''
+                    payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
                     headers = {
                         'Authorization': f'Bearer {token}',
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -336,8 +334,130 @@ def get_okx_last_price(token):
                         "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
                     print(
-                        f"OKX ==> symbol: {i['symbol']} price:{last} status: {response.status_code}")
+                        f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
+
+def get_coin_ex_last_price(token):
+    thb = get_thb_rate()
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request(
+        "GET", f"{api_host}/asset/list", headers=headers, data={})
+    for i in response.json()["data"]:
+        # print(f"https://api.coinex.com/v1/market/ticker?market={i['symbol']}USDT")
+        response = requests.request(
+            "GET", f"https://api.coinex.com/v1/market/ticker?market={i['symbol']}USDT")
+        if response.status_code == 200:
+            if response.json()["code"] == 0:
+                obj = response.json()["data"]["ticker"]
+                if obj['last'] != None:
+                    exchange = "CoinEx"
+                    symbol = i['symbol']
+                    last = float(obj['last'])*thb
+                    lowestAsk = float(obj['buy'])
+                    highestBid = float(obj['sell'])
+                    percentChange = 0  # float(obj['changeBod'])
+                    baseVolume = float(obj['vol'])
+                    quoteVolume = float(obj['sell_amount'])
+                    isFrozen = 0  # float(obj['largeOrderThreshold'])
+                    high24hr = float(obj['high'])
+                    low24hr = float(obj['low'])
+                    change = 0  # float(obj['change24h'])
+                    prevClose = 0  # float(obj['lastPrice'])*thb
+                    prevOpen = float(obj['open'])
+
+                    payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
+                    headers = {
+                        'Authorization': f'Bearer {token}',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+
+                    response = requests.request(
+                        "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
+
+                    print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
+
+
+def get_poloniex_last_price(token):
+    thb = get_thb_rate()
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request(
+        "GET", f"{api_host}/asset/list", headers=headers, data={})
+    for i in response.json()["data"]:
+        response = requests.request(
+            "GET", f"https://api.poloniex.com/markets/{i['symbol']}_USDT/ticker24h")
+        if response.status_code == 200:
+            obj = response.json()
+            exchange = "Poloniex"
+            symbol = i['symbol']
+            last = float(obj['close'])*thb
+            lowestAsk = 0#float(obj['askPrice'])*thb
+            highestBid = 0#float(obj['bidPrice'])*thb
+            percentChange = 0#float(obj['priceChangePercent'])
+            baseVolume = float(obj['quantity'])
+            quoteVolume = float(obj['amount'])
+            isFrozen = 0#float(obj['weightedAvgPrice'])
+            high24hr = float(obj['high'])
+            low24hr = float(obj['low'])
+            change = 0#float(obj['priceChange'])
+            prevClose = float(obj['close'])
+            prevOpen = float(obj['open'])
+
+            payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
+            headers = {
+                'Authorization': f'Bearer {token}',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+
+            response = requests.request(
+                "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
+
+            print(
+                f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+
+
+def get_mexc_last_price(token):
+    thb = get_thb_rate()
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request(
+        "GET", f"{api_host}/asset/list", headers=headers, data={})
+    for i in response.json()["data"]:
+        response = requests.request(
+            "GET", f"https://www.mexc.com/open/api/v2/market/ticker?symbol={i['symbol']}_USDT")
+        if response.status_code == 200:
+            obj = response.json()["data"][0]
+            if obj['last'] != None:
+                exchange = "MEXC"
+                symbol = i['symbol']
+                last = float(obj['last'])*thb
+                lowestAsk = float(obj['ask'])
+                highestBid = float(obj['bid'])
+                percentChange = float(obj['change_rate'])
+                baseVolume = float(obj['volume'])
+                quoteVolume = float(obj['amount'])
+                isFrozen = 0  # float(obj['weightedAvgPrice'])
+                high24hr = float(obj['high'])
+                low24hr = float(obj['low'])
+                change = float(obj['change_rate'])
+                prevClose = float(obj['last'])*thb
+                prevOpen = float(obj['open'])*thb
+
+                payload = f"exchange_id={exchange}&asset_id={symbol}&last_price={last}&lowest_ask={lowestAsk}&highest_bid={highestBid}&percent_change={percentChange}&base_volume={baseVolume}&quote_volume={quoteVolume}&is_frozen={isFrozen}&high_24_hr={high24hr}&low_24_hr={low24hr}&change_total={change}&prev_close={prevClose}&prev_open={prevOpen}&description={symbol}_{exchange}&is_active=true"
+                headers = {
+                    'Authorization': f'Bearer {token}',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+
+                response = requests.request(
+                    "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
+
+                print(
+                    f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 def logout(token):
     payload = {}
@@ -353,18 +473,24 @@ def logout(token):
 if __name__ == "__main__":
     token = login()
     symbols(token)
-    print(f"------------- BITKUB -----------------")
+    print(f"1.------------- BITKUB -----------------")
     get_bit_kub_last_price(token)
-    print(f"------------- BINANCE -----------------")
+    print(f"2.------------- COINEX -----------------")
+    get_coin_ex_last_price(token)
+    print(f"3.------------- BINANCE -----------------")
     get_binance_last_price(token)
-    print(f"------------- SATANG PRO -----------------")
+    print(f"4.------------- SATANG PRO -----------------")
     get_satang_pro_last_price(token)
-    print(f"------------- Gate.io -----------------")
+    print(f"5.------------- Gate.io -----------------")
     get_gate_io_last_price(token)
-    print(f"------------- KUCOIN -----------------")
+    print(f"6.------------- KUCOIN -----------------")
     get_kucoin_last_price(token)
-    print(f"------------- FTX -----------------")
+    print(f"7.------------- FTX -----------------")
     get_ftx_last_price(token)
-    print(f"------------- OKX -----------------")
+    print(f"8.------------- OKX -----------------")
     get_okx_last_price(token)
+    print(f"9.------------- POLONIX -----------------")
+    get_poloniex_last_price(token)
+    print(f"10.------------- MEXC -----------------")
+    get_mexc_last_price(token)
     logout(token)
