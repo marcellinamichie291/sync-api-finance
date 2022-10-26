@@ -82,7 +82,7 @@ def get_gate_io_last_price(token):
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
             print(
-                f"GATE.IO ==> symbol: {i['symbol']} price: {obj['last']} thb:{float(obj['last'])*thb} status: {response.status_code}")
+                f"GATE.IO ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_satang_pro_last_price(token):
@@ -122,7 +122,7 @@ def get_satang_pro_last_price(token):
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
             print(
-                f"Satang Pro ==> symbol: {i['symbol']} price: {obj['lastPrice']} status: {response.status_code}")
+                f"Satang Pro ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_binance_last_price(token):
@@ -162,7 +162,7 @@ def get_binance_last_price(token):
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
             print(
-                f"BINANCE ==> symbol: {i['symbol']} price: {obj['lastPrice']} thb:{float(obj['lastPrice'])*thb} status: {response.status_code}")
+                f"BINANCE ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_bit_kub_last_price(token):
@@ -237,7 +237,7 @@ def get_kucoin_last_price(token):
                     "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
                 print(
-                    f"KUCOIN ==> symbol: {i['symbol']} price: {obj['last']} thb:{float(obj['last'])*thb} status: {response.status_code}")
+                    f"KUCOIN ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
 
 
 def get_ftx_last_price(token):
