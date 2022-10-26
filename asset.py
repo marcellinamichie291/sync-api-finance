@@ -33,18 +33,28 @@ def symbols(token):
         rn += 1
 
     # response = requests.request(
-    #     "GET", "https://api.gateio.ws/api/v4/spot/tickers")
-    # for i in response.json():
-    #     symbol = (i['currency_pair'])[:(i['currency_pair']).find('_')]
-    #     description = symbol
-    #     payload = f'asset_group_id=-&symbol={symbol}&description={description}&is_active=true'
-    #     headers = {
-    #         'Authorization': f'Bearer {token}',
-    #         'Content-Type': 'application/x-www-form-urlencoded'
-    #     }
+    #     "GET", "https://api.binance.com/api/v3/exchangeInfo")
+    # obj = response.json()["symbols"]
+    # rn = 1
+    # for i in obj:
+    #     symbol = i["baseAsset"]
+    #     if i["quoteAsset"] == "BUSD":
+    #         try:
+    #             perms = (i["permissions"]).index("SPOT")
+    #             if perms >= 0:
+    #                 description = symbol
+    #                 payload = f'asset_group_id=-&symbol={symbol}&description={description}&is_active=true'
+    #                 headers = {
+    #                     'Authorization': f'Bearer {token}',
+    #                     'Content-Type': 'application/x-www-form-urlencoded'
+    #                 }
 
-    #     response = requests.request(
-    #         "POST", f"{api_host}/asset/list", headers=headers, data=payload)
+    #                 response = requests.request(
+    #                     "POST", f"{api_host}/asset/list", headers=headers, data=payload)
+    #                 print(f"{rn} ==> symbol: {symbol} status: {response.status_code}")
+    #         except Exception as e:
+    #             print(e)
+    #     rn += 1
     return None
 
 
@@ -96,7 +106,8 @@ def get_gate_io_last_price(token):
             response = requests.request(
                 "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-            print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
+            print(
+                f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
 
 
 def get_satang_pro_last_price(token):
@@ -209,7 +220,8 @@ def get_bit_kub_last_price(token):
         response = requests.request(
             "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-        print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
+        print(
+            f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
 
 
 def get_kucoin_last_price(token):
@@ -376,7 +388,8 @@ def get_coin_ex_last_price(token):
                     response = requests.request(
                         "POST", f"{api_host}/asset/lastprice", headers=headers, data=payload)
 
-                    print(f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
+                    print(
+                        f"{exchange} ==> symbol: {symbol} price: {last} status: {response.status_code}")
 
 
 def get_poloniex_last_price(token):
@@ -394,15 +407,15 @@ def get_poloniex_last_price(token):
             exchange = "Poloniex"
             symbol = i['symbol']
             last = float(obj['close'])*thb
-            lowestAsk = 0#float(obj['askPrice'])*thb
-            highestBid = 0#float(obj['bidPrice'])*thb
-            percentChange = 0#float(obj['priceChangePercent'])
+            lowestAsk = 0  # float(obj['askPrice'])*thb
+            highestBid = 0  # float(obj['bidPrice'])*thb
+            percentChange = 0  # float(obj['priceChangePercent'])
             baseVolume = float(obj['quantity'])
             quoteVolume = float(obj['amount'])
-            isFrozen = 0#float(obj['weightedAvgPrice'])
+            isFrozen = 0  # float(obj['weightedAvgPrice'])
             high24hr = float(obj['high'])
             low24hr = float(obj['low'])
-            change = 0#float(obj['priceChange'])
+            change = 0  # float(obj['priceChange'])
             prevClose = float(obj['close'])
             prevOpen = float(obj['open'])
 
@@ -458,6 +471,7 @@ def get_mexc_last_price(token):
 
                 print(
                     f"{exchange} ==> symbol: {i['symbol']} price: {last} status: {response.status_code}")
+
 
 def logout(token):
     payload = {}
