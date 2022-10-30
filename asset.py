@@ -56,14 +56,18 @@ def symbols(token):
 
 
 def get_thb_rate():
-    dte = datetime.now() - timedelta(days=1)
-    start_period = dte.strftime("%Y-%m-%d")
-    end_period = datetime.now().strftime("%Y-%m-%d")
-    url = f"https://apigw1.bot.or.th/bot/public/Stat-ReferenceRate/v2/DAILY_REF_RATE/?start_period={start_period}&end_period={end_period}"
-    headers = {'X-IBM-Client-Id': 'f7379501-3434-4047-9ee9-e0b81919663b', }
-    response = requests.request("GET", url, headers=headers)
-    data = response.json()
-    x = float(data["result"]["data"]["data_detail"][0]["rate"])
+    x = 40
+    try:
+        dte = datetime.now() - timedelta(days=1)
+        start_period = dte.strftime("%Y-%m-%d")
+        end_period = datetime.now().strftime("%Y-%m-%d")
+        url = f"https://apigw1.bot.or.th/bot/public/Stat-ReferenceRate/v2/DAILY_REF_RATE/?start_period={start_period}&end_period={end_period}"
+        headers = {'X-IBM-Client-Id': 'f7379501-3434-4047-9ee9-e0b81919663b', }
+        response = requests.request("GET", url, headers=headers)
+        data = response.json()
+        x = float(data["result"]["data"]["data_detail"][0]["rate"])
+    except Exception as e:
+        pass
     return x
 
 
