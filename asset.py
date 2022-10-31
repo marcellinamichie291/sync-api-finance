@@ -456,7 +456,7 @@ def get_last_price(token):
         'Authorization': f'Bearer {token}'
     }
     response = requests.request("GET", f"{api_host}/asset/arbitrage/ticker", headers=headers, data={})
-    print(f"get lastprice: {response.status_code}")
+    # print(f"get lastprice: {response.status_code}")
 
 def logout(token):
     payload = {}
