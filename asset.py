@@ -451,6 +451,12 @@ def get_mexc_last_price(token):
             except Exception as e:
                 pass
 
+def get_last_price(token):
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request("GET", f"{api_host}/asset/arbitrage/ticker", headers=headers, data={})
+    print(f"get lastprice: {response.status_code}")
 
 def logout(token):
     payload = {}
@@ -466,24 +472,25 @@ def logout(token):
 if __name__ == "__main__":
     token = login()
     symbols(token)
-    print(f"1.------------- BITKUB -----------------")
-    get_bit_kub_last_price(token)
-    print(f"2.------------- COINEX -----------------")
-    get_coin_ex_last_price(token)
-    print(f"3.------------- BINANCE -----------------")
-    get_binance_last_price(token)
-    print(f"4.------------- SATANG PRO -----------------")
-    get_satang_pro_last_price(token)
-    print(f"5.------------- Gate.io -----------------")
-    get_gate_io_last_price(token)
-    print(f"6.------------- KUCOIN -----------------")
-    get_kucoin_last_price(token)
-    print(f"7.------------- FTX -----------------")
-    get_ftx_last_price(token)
-    print(f"8.------------- OKX -----------------")
-    get_okx_last_price(token)
-    print(f"9.------------- POLONIX -----------------")
-    get_poloniex_last_price(token)
-    print(f"10.------------- MEXC -----------------")
-    get_mexc_last_price(token)
+    get_last_price(token)
+    # print(f"1.------------- BITKUB -----------------")
+    # get_bit_kub_last_price(token)
+    # print(f"2.------------- COINEX -----------------")
+    # get_coin_ex_last_price(token)
+    # print(f"3.------------- BINANCE -----------------")
+    # get_binance_last_price(token)
+    # print(f"4.------------- SATANG PRO -----------------")
+    # get_satang_pro_last_price(token)
+    # print(f"5.------------- Gate.io -----------------")
+    # get_gate_io_last_price(token)
+    # print(f"6.------------- KUCOIN -----------------")
+    # get_kucoin_last_price(token)
+    # print(f"7.------------- FTX -----------------")
+    # get_ftx_last_price(token)
+    # print(f"8.------------- OKX -----------------")
+    # get_okx_last_price(token)
+    # print(f"9.------------- POLONIX -----------------")
+    # get_poloniex_last_price(token)
+    # print(f"10.------------- MEXC -----------------")
+    # get_mexc_last_price(token)
     logout(token)
